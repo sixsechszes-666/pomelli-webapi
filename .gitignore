@@ -1,0 +1,29 @@
+# сборка и кэши
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# окружения
+.venv/
+venv/
+env/
+
+# тесты и линтеры
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# редакторы
+.vscode/
+.idea/
+*.swp
+
+# локальное
+.env
+*.local
+cookies.json
+session.json

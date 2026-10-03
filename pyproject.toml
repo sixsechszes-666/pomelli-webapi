@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pomelli-webapi"
+version = "0.1.0"
+description = "Async Python wrapper for the Google Pomelli web app, no browser required"
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["API", "async", "Pomelli", "Google", "Labs", "photoshoot", "product images"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.10"
+dependencies = [
+  "curl-cffi>=0.11",
+  "loguru>=0.7",
+]
+
+[project.optional-dependencies]
+browser = ["browser-cookie3"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+pomelli-cli = "pomelli_webapi.cli:main"
+
+[project.urls]
+Repository = "https://github.com/sixsechszes-666/pomelli-webapi"
+Issues = "https://github.com/sixsechszes-666/pomelli-webapi/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pomelli_webapi*"]
+
+[tool.pytest.ini_options]
+# Tests import the package from the source tree, so they run on a fresh clone
+# with nothing but pytest installed - no editable install first.
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "N", "RET", "RUF", "SIM", "UP", "W"]
+ignore = [
+  "E501",
+  # `isinstance(x, (str, Path))` builds no throwaway object per call, and the
+  # if/else it is paired with reads better than a one-line ternary.
+  "UP038",
+  "SIM108",
+]
